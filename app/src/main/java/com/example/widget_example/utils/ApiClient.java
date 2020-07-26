@@ -12,7 +12,7 @@ public class ApiClient {
 
         if (retrofit == null){
             retrofit = new retrofit2.Retrofit.Builder()
-                    .baseUrl("http://newsapi.org")
+                    .baseUrl("https://newsapi.org")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

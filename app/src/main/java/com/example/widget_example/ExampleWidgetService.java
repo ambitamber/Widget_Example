@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -50,11 +51,12 @@ public class ExampleWidgetService extends RemoteViewsService {
                 public void onResponse(Call<News> call, Response<News> response) {
                     news = response.body();
                     articlesArrayList = news.getArticles();
+                    Log.i("ExampleWidgetService", news.getStatus());
                 }
 
                 @Override
                 public void onFailure(Call<News> call, Throwable t) {
-
+                    Log.i("ExampleWidgetService",t.getMessage());
                 }
             });
         }
