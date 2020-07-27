@@ -84,7 +84,7 @@ public class ExampleWidgetService extends RemoteViewsService {
 
         @Override
         public RemoteViews getViewAt(int position) {
-            RemoteViews remoteViews = new RemoteViews(context.getPackageName(),R.layout.example_widget);
+            RemoteViews remoteViews = new RemoteViews(context.getPackageName(),R.layout.example_widget_item);
             Articles articles = articlesArrayList.get(position);
             remoteViews.setTextViewText(R.id.example_widget_item_text,articles.getTitle());
             return remoteViews;

@@ -18,7 +18,7 @@ public class ExampleAppWidgetProvider extends AppWidgetProvider {
             Intent intent = new Intent(context, ExampleWidgetService.class);
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,appWidgetId);
             intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
-            rv.setEmptyView(R.id.example_widget_stack_view, R.id.example_widget_empty_view);
+            rv.setEmptyView(R.id.example_widget_stack_view,R.id.example_widget_empty_view);
             rv.setRemoteAdapter(R.id.example_widget_stack_view, intent);
             appWidgetManager.updateAppWidget(appWidgetId, rv);
         }
