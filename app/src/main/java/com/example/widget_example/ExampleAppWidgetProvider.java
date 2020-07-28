@@ -2,6 +2,7 @@ package com.example.widget_example;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -20,7 +21,9 @@ public class ExampleAppWidgetProvider extends AppWidgetProvider {
             intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
             rv.setEmptyView(R.id.example_widget_stack_view,R.id.example_widget_empty_view);
             rv.setRemoteAdapter(R.id.example_widget_stack_view, intent);
-            appWidgetManager.updateAppWidget(appWidgetId, rv);
+            ComponentName componentName = new ComponentName(context,ExampleWidgetService.class );
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds,R.id.example_widget_stack_view);
+            appWidgetManager.updateAppWidget(componentName, rv);
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
     }

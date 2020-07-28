@@ -36,6 +36,7 @@ public class ExampleWidgetService extends RemoteViewsService {
         private int appWidgetId;
         private News news;
         private ArrayList<Articles> articlesArrayList = new ArrayList<>();
+        String[] newsTitle;
 
         public ExampleWidgetItemFactory(Context applicationContext, Intent intent) {
 
@@ -51,7 +52,11 @@ public class ExampleWidgetService extends RemoteViewsService {
                 public void onResponse(Call<News> call, Response<News> response) {
                     news = response.body();
                     articlesArrayList = news.getArticles();
-                    Log.i("ExampleWidgetService", news.getStatus());
+                    newsTitle = new String[articlesArrayList.size()];
+                    for (int i = 0; i < articlesArrayList.size();i++){
+                        newsTitle[i] = articlesArrayList.get(i).getTitle();
+                    }
+                    Log.i("ExampleWidgetService",  news.getStatus());
                 }
 
                 @Override
@@ -63,30 +68,33 @@ public class ExampleWidgetService extends RemoteViewsService {
 
         @Override
         public void onCreate() {
-            getData();
         }
 
         @Override
         public void onDataSetChanged() {
-            getData();
+           getData();
         }
 
         @Override
         public void onDestroy() {
-            articlesArrayList.clear();
+            newsTitle = null;
 
         }
 
         @Override
         public int getCount() {
-            return articlesArrayList.size();
+            if (newsTitle == null){
+                getData();
+               return 0;
+            }
+            return newsTitle.length;
         }
 
         @Override
         public RemoteViews getViewAt(int position) {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(),R.layout.example_widget_item);
-            Articles articles = articlesArrayList.get(position);
-            remoteViews.setTextViewText(R.id.example_widget_item_text,articles.getTitle());
+            remoteViews.setTextViewText(R.id.example_widget_item_text,newsTitle[position]);
+            Log.i("RemoteViews",  " is called.");
             return remoteViews;
         }
 
